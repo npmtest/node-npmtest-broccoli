@@ -1,0 +1,1871 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-broccoli/broccoli/lib/builder.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-broccoli">npmtest-broccoli (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-broccoli/broccoli/lib/builder.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">22.82% <small>(55 / 241)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 66)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 37)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">23.5% <small>(55 / 234)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-broccoli/broccoli/lib/</a> &#187; builder.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict'
+&nbsp;
+var path = require('path')
+var fs = require('fs')
+var RSVP = require('rsvp')
+var tmp = require('tmp')
+var rimraf = require('rimraf')
+var underscoreString = require('underscore.string')
+var WatchedDir = require('broccoli-source').WatchedDir
+var broccoliNodeInfo = require('broccoli-node-info')
+&nbsp;
+// Clean up left-over temporary directories on uncaught exception.
+tmp.setGracefulCleanup()
+&nbsp;
+&nbsp;
+// For an explanation and reference of the API that we use to communicate with
+// nodes (__broccoliFeatures__ and __broccoliGetInfo__), see
+// https://github.com/broccolijs/broccoli/blob/master/docs/node-api.md
+&nbsp;
+&nbsp;
+// Build a graph of nodes, referenced by its final output node. Example:
+//
+// var builder = new Builder(outputNode)
+// builder.build()
+//   .then(function() {
+//     // Build output has been written to builder.outputPath
+//   })
+//   // To rebuild, call builder.build() repeatedly
+//   .finally(function() {
+//     // Delete temporary directories
+//     builder.cleanup()
+//   })
+//
+// Note that the API of this Builder may change between minor Broccoli
+// versions. Backwards compatibility is only guaranteed for plugins, so any
+// plugin that works with Broccoli 1.0 will work with 1.x.
+&nbsp;
+module.exports = Builder
+<span class="fstat-no" title="function not covered" >function Builder(outputNode, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (options == null) <span class="cstat-no" title="statement not covered" >options = {}</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.outputNode = outputNode</span>
+<span class="cstat-no" title="statement not covered" >  this.tmpdir = options.tmpdir </span>// can be null
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.unwatchedPaths = []</span>
+<span class="cstat-no" title="statement not covered" >  this.watchedPaths = []</span>
+&nbsp;
+  // nodeWrappers store additional bookkeeping information, such as paths.
+  // This array contains them in topological (build) order.
+<span class="cstat-no" title="statement not covered" >  this.nodeWrappers = []</span>
+  // This populates this.nodeWrappers as a side effect
+<span class="cstat-no" title="statement not covered" >  this.outputNodeWrapper = this.makeNodeWrapper(this.outputNode)</span>
+&nbsp;
+  // Catching missing directories here helps prevent later errors when we set
+  // up the watcher.
+<span class="cstat-no" title="statement not covered" >  this.checkInputPathsExist()</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.setupTmpDirs()</span>
+&nbsp;
+  // Now that temporary directories are set up, we need to run the rest of the
+  // constructor in a try/catch block to clean them up if necessary.
+<span class="cstat-no" title="statement not covered" >  try {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setupNodes()</span>
+<span class="cstat-no" title="statement not covered" >    this.outputPath = this.outputNodeWrapper.outputPath</span>
+<span class="cstat-no" title="statement not covered" >    this.buildId = 0</span>
+&nbsp;
+  } catch (e) {
+<span class="cstat-no" title="statement not covered" >    this.cleanup()</span>
+<span class="cstat-no" title="statement not covered" >    throw e</span>
+  }
+}
+&nbsp;
+RSVP.EventTarget.mixin(Builder.prototype)
+&nbsp;
+// Trigger a (re)build.
+//
+// Returns a promise that resolves when the build has finished. If there is a
+// build error, the promise is rejected with a Builder.BuildError instance.
+// This method will never throw, and it will never be rejected with anything
+// other than a BuildError.
+Builder.prototype.build = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var self = this</span>
+<span class="cstat-no" title="statement not covered" >  this.buildId++</span>
+<span class="cstat-no" title="statement not covered" >  var promise = RSVP.resolve()</span>
+<span class="cstat-no" title="statement not covered" >  this.nodeWrappers.forEach(<span class="fstat-no" title="function not covered" >function(nw) {</span></span>
+    // We use `.forEach` instead of `for` to close nested functions over `nw`
+&nbsp;
+    // Wipe all buildState objects at the beginning of the build
+<span class="cstat-no" title="statement not covered" >    nw.buildState = {}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    promise = promise</span>
+      .then(<span class="fstat-no" title="function not covered" >function() {</span>
+        // We use a nested .then/.catch so that the .catch can only catch errors
+        // from this node, but not from previous nodes.
+<span class="cstat-no" title="statement not covered" >        return RSVP.resolve()</span>
+          .then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            self.trigger('beginNode', nw)</span>
+          })
+          .then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            return nw.build()</span>
+          })
+          .finally(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            self.trigger('endNode', nw)</span>
+          })
+          .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new BuildError(err, nw)</span>
+          })
+      })
+  })
+<span class="cstat-no" title="statement not covered" >  return promise</span>
+}
+&nbsp;
+// Destructor-like method. Cleanup is synchronous at the moment, but in the
+// future we might change it to return a promise.
+Builder.prototype.cleanup = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  this.builderTmpDirCleanup()</span>
+}
+&nbsp;
+// This method recursively traverses the node graph and returns a nodeWrapper.
+// The nodeWrapper graph parallels the node graph 1:1.
+Builder.prototype.makeNodeWrapper = <span class="fstat-no" title="function not covered" >function(node, _stack) {</span>
+<span class="cstat-no" title="statement not covered" >  if (_stack == null) <span class="cstat-no" title="statement not covered" >_stack = []</span></span>
+<span class="cstat-no" title="statement not covered" >  var self = this</span>
+&nbsp;
+  // Dedupe nodes reachable through multiple paths
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; this.nodeWrappers.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (this.nodeWrappers[i].originalNode === node) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.nodeWrappers[i]</span>
+    }
+  }
+&nbsp;
+  // Turn string nodes into WatchedDir nodes
+<span class="cstat-no" title="statement not covered" >  var originalNode = node </span>// keep original (possibly string) node around for deduping
+<span class="cstat-no" title="statement not covered" >  if (typeof node === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >    node = new WatchedDir(node, { annotation: 'string node' })</span>
+  }
+&nbsp;
+  // Call node.__broccoliGetInfo__()
+<span class="cstat-no" title="statement not covered" >  var nodeInfo</span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    nodeInfo = broccoliNodeInfo.getNodeInfo(node)</span>
+  } catch (e) {
+<span class="cstat-no" title="statement not covered" >    if (!(e instanceof broccoliNodeInfo.InvalidNodeError)) <span class="cstat-no" title="statement not covered" >throw e</span></span>
+    // We don't have the instantiation stack of an invalid node, so to aid
+    // debugging, we instead report its parent node
+<span class="cstat-no" title="statement not covered" >    var messageSuffix = (_stack.length &gt; 0) ?</span>
+      '\nused as input node to ' + _stack[_stack.length-1].label +
+        _stack[_stack.length-1].formatInstantiationStackForTerminal()
+      : '\nused as output node'
+<span class="cstat-no" title="statement not covered" >    throw new broccoliNodeInfo.InvalidNodeError(e.message + messageSuffix)</span>
+  }
+&nbsp;
+  // Compute label, like "Funnel (test suite)"
+<span class="cstat-no" title="statement not covered" >  var label = nodeInfo.name</span>
+<span class="cstat-no" title="statement not covered" >  var labelExtras = []</span>
+<span class="cstat-no" title="statement not covered" >  if (nodeInfo.nodeType === 'source') <span class="cstat-no" title="statement not covered" >labelExtras.push(nodeInfo.sourceDirectory)</span></span>
+<span class="cstat-no" title="statement not covered" >  if (nodeInfo.annotation != null) <span class="cstat-no" title="statement not covered" >labelExtras.push(nodeInfo.annotation)</span></span>
+<span class="cstat-no" title="statement not covered" >  if (labelExtras.length &gt; 0) <span class="cstat-no" title="statement not covered" >label += ' (' + labelExtras.join('; ') + ')'</span></span>
+&nbsp;
+  // We start constructing the nodeWrapper here because we'll need the partial
+  // nodeWrapper for the _stack. Later we'll add more properties.
+<span class="cstat-no" title="statement not covered" >  var nodeWrapper = nodeInfo.nodeType === 'transform' ?</span>
+    new TransformNodeWrapper : new SourceNodeWrapper
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.nodeInfo = nodeInfo</span>
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.originalNode = originalNode</span>
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.node = node</span>
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.label = label</span>
+&nbsp;
+  // Detect cycles
+<span class="cstat-no" title="statement not covered" >  for (i = 0; i &lt; _stack.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (_stack[i].node === originalNode) {</span>
+<span class="cstat-no" title="statement not covered" >      var cycleMessage = 'Cycle in node graph: '</span>
+<span class="cstat-no" title="statement not covered" >      for (var j = i; j &lt; _stack.length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >        cycleMessage += _stack[j].label + ' -&gt; '</span>
+      }
+<span class="cstat-no" title="statement not covered" >      cycleMessage += nodeWrapper.label</span>
+<span class="cstat-no" title="statement not covered" >      throw new BuilderError(cycleMessage)</span>
+    }
+  }
+&nbsp;
+  // For 'transform' nodes, recurse into the input nodes; for 'source' nodes,
+  // record paths.
+<span class="cstat-no" title="statement not covered" >  var inputNodeWrappers = []</span>
+<span class="cstat-no" title="statement not covered" >  if (nodeInfo.nodeType === 'transform') {</span>
+<span class="cstat-no" title="statement not covered" >    var newStack = _stack.concat([nodeWrapper])</span>
+<span class="cstat-no" title="statement not covered" >    inputNodeWrappers = nodeInfo.inputNodes.map(<span class="fstat-no" title="function not covered" >function(inputNode) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return self.makeNodeWrapper(inputNode, newStack)</span>
+    })
+  } else { // nodeType === 'source'
+<span class="cstat-no" title="statement not covered" >    if (nodeInfo.watched) {</span>
+<span class="cstat-no" title="statement not covered" >      this.watchedPaths.push(nodeInfo.sourceDirectory)</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.unwatchedPaths.push(nodeInfo.sourceDirectory)</span>
+    }
+  }
+&nbsp;
+  // For convenience, all nodeWrappers get an `inputNodeWrappers` array; for
+  // 'source' nodes it's empty.
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.inputNodeWrappers = inputNodeWrappers</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  nodeWrapper.id = this.nodeWrappers.length</span>
+&nbsp;
+  // this.nodeWrappers will contain all the node wrappers in topological
+  // order, i.e. each node comes after all its input nodes.
+  //
+  // It's unfortunate that we're mutating this.nodeWrappers as a side effect,
+  // but since we work backwards from the output node to discover all the
+  // input nodes, it's harder to do a side-effect-free topological sort.
+<span class="cstat-no" title="statement not covered" >  this.nodeWrappers.push(nodeWrapper)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return nodeWrapper</span>
+}
+&nbsp;
+Builder.prototype.features = broccoliNodeInfo.features
+&nbsp;
+Builder.prototype.checkInputPathsExist = <span class="fstat-no" title="function not covered" >function() {</span>
+  // We might consider checking this.unwatchedPaths as well.
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; this.watchedPaths.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var isDirectory</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      isDirectory = fs.statSync(this.watchedPaths[i]).isDirectory()</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >      throw new Builder.BuilderError('Directory not found: ' + this.watchedPaths[i])</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (!isDirectory) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Builder.BuilderError('Not a directory: ' + this.watchedPaths[i])</span>
+    }
+  }
+};
+&nbsp;
+Builder.prototype.setupTmpDirs = <span class="fstat-no" title="function not covered" >function() {</span>
+  // Create temporary directories for each node:
+  //
+  //   out-01-someplugin/
+  //   out-02-otherplugin/
+  //   cache-01-someplugin/
+  //   cache-02-otherplugin/
+  //
+  // Here's an alternative directory structure we might consider (it's not
+  // clear which structure makes debugging easier):
+  //
+  //   01-someplugin/
+  //     out/
+  //     cache/
+  //     in-1 -&gt; ... // symlink for convenience
+  //     in-2 -&gt; ...
+  //   02-otherplugin/
+  //     ...
+<span class="cstat-no" title="statement not covered" >  var tmpobj = tmp.dirSync({ prefix: 'broccoli-', unsafeCleanup: true, dir: this.tmpdir })</span>
+<span class="cstat-no" title="statement not covered" >  this.builderTmpDir = tmpobj.name</span>
+<span class="cstat-no" title="statement not covered" >  this.builderTmpDirCleanup = tmpobj.removeCallback</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; this.nodeWrappers.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var nodeWrapper = this.nodeWrappers[i]</span>
+<span class="cstat-no" title="statement not covered" >    if (nodeWrapper.nodeInfo.nodeType === 'transform') {</span>
+<span class="cstat-no" title="statement not covered" >      nodeWrapper.inputPaths = nodeWrapper.inputNodeWrappers.map(<span class="fstat-no" title="function not covered" >function(nw) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return nw.outputPath</span>
+      })
+<span class="cstat-no" title="statement not covered" >      nodeWrapper.outputPath = this.mkTmpDir(nodeWrapper, 'out')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (nodeWrapper.nodeInfo.needsCache) {</span>
+<span class="cstat-no" title="statement not covered" >        nodeWrapper.cachePath = this.mkTmpDir(nodeWrapper, 'cache')</span>
+      }
+    } else { // nodeType === 'source'
+      // We could name this .sourcePath, but with .outputPath the code is simpler.
+<span class="cstat-no" title="statement not covered" >      nodeWrapper.outputPath = nodeWrapper.nodeInfo.sourceDirectory</span>
+    }
+  }
+}
+&nbsp;
+&nbsp;
+// Create temporary directory, like
+// /tmp/broccoli-9rLfJh/out-067-merge_trees_vendor_packages
+// type is 'out' or 'cache'
+Builder.prototype.mkTmpDir = <span class="fstat-no" title="function not covered" >function(nodeWrapper, type) {</span>
+<span class="cstat-no" title="statement not covered" >  var nameAndAnnotation = nodeWrapper.nodeInfo.name + ' ' + (nodeWrapper.nodeInfo.annotation || '')</span>
+  // slugify turns fooBar into foobar, so we call underscored first to
+  // preserve word boundaries
+<span class="cstat-no" title="statement not covered" >  var suffix = underscoreString.underscored(nameAndAnnotation.substr(0, 60))</span>
+<span class="cstat-no" title="statement not covered" >  suffix = underscoreString.slugify(suffix).replace(/-/g, '_')</span>
+  // 1 .. 147 -&gt; '001' .. '147'
+<span class="cstat-no" title="statement not covered" >  var paddedId = underscoreString.pad('' + nodeWrapper.id, ('' + this.nodeWrappers.length).length, '0')</span>
+<span class="cstat-no" title="statement not covered" >  var dirname = type + '-' + paddedId + '-' + suffix</span>
+<span class="cstat-no" title="statement not covered" >  var tmpDir = path.join(this.builderTmpDir, dirname)</span>
+<span class="cstat-no" title="statement not covered" >  fs.mkdirSync(tmpDir)</span>
+<span class="cstat-no" title="statement not covered" >  return tmpDir</span>
+}
+&nbsp;
+Builder.prototype.setupNodes = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; this.nodeWrappers.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var nw = this.nodeWrappers[i]</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      nw.setup(this.features)</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >      throw new NodeSetupError(err, nw)</span>
+    }
+  }
+}
+&nbsp;
+&nbsp;
+// Base class for builder errors
+Builder.BuilderError = BuilderError
+BuilderError.prototype = Object.create(Error.prototype)
+BuilderError.prototype.constructor = BuilderError
+<span class="fstat-no" title="function not covered" >function BuilderError(message) {</span>
+  // Subclassing Error in ES5 is non-trivial because reasons, so we need this
+  // extra constructor logic from http://stackoverflow.com/a/17891099/525872.
+  // Note that ES5 subclasses of BuilderError don't in turn need any special
+  // code.
+<span class="cstat-no" title="statement not covered" >  var temp = Error.apply(this, arguments)</span>
+  // Need to assign temp.name for correct error class in .stack and .message
+<span class="cstat-no" title="statement not covered" >  temp.name = this.name = this.constructor.name</span>
+<span class="cstat-no" title="statement not covered" >  this.stack = temp.stack</span>
+<span class="cstat-no" title="statement not covered" >  this.message = temp.message</span>
+}
+&nbsp;
+Builder.InvalidNodeError = broccoliNodeInfo.InvalidNodeError
+&nbsp;
+Builder.NodeSetupError = NodeSetupError
+NodeSetupError.prototype = Object.create(BuilderError.prototype)
+NodeSetupError.prototype.constructor = NodeSetupError
+<span class="fstat-no" title="function not covered" >function NodeSetupError(originalError, nodeWrapper) {</span>
+<span class="cstat-no" title="statement not covered" >  if (nodeWrapper == null) { // Chai calls new NodeSetupError() :(</span>
+<span class="cstat-no" title="statement not covered" >    BuilderError.call(this)</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
+<span class="cstat-no" title="statement not covered" >  originalError = wrapPrimitiveErrors(originalError)</span>
+<span class="cstat-no" title="statement not covered" >  var message = originalError.message +</span>
+    '\nat ' + nodeWrapper.label +
+    nodeWrapper.formatInstantiationStackForTerminal()
+<span class="cstat-no" title="statement not covered" >  BuilderError.call(this, message)</span>
+  // The stack will have the original exception name, but that's OK
+<span class="cstat-no" title="statement not covered" >  this.stack = originalError.stack</span>
+}
+&nbsp;
+Builder.BuildError = BuildError
+BuildError.prototype = Object.create(BuilderError.prototype)
+BuildError.prototype.constructor = BuildError
+<span class="fstat-no" title="function not covered" >function BuildError(originalError, nodeWrapper) {</span>
+<span class="cstat-no" title="statement not covered" >  if (nodeWrapper == null) { // for Chai</span>
+<span class="cstat-no" title="statement not covered" >    BuilderError.call(this)</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  originalError = wrapPrimitiveErrors(originalError)</span>
+&nbsp;
+  // Create heavily augmented message for easy printing to the terminal. Web
+  // interfaces should refer to broccoliPayload.originalError.message instead.
+<span class="cstat-no" title="statement not covered" >  var filePart = ''</span>
+<span class="cstat-no" title="statement not covered" >  if (originalError.file != null) {</span>
+<span class="cstat-no" title="statement not covered" >    filePart = originalError.file</span>
+<span class="cstat-no" title="statement not covered" >    if (originalError.line != null) {</span>
+<span class="cstat-no" title="statement not covered" >      filePart += ':' + originalError.line</span>
+<span class="cstat-no" title="statement not covered" >      if (originalError.column != null) {</span>
+        // .column is zero-indexed
+<span class="cstat-no" title="statement not covered" >        filePart += ':' + (originalError.column + 1)</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    filePart += ': '</span>
+  }
+<span class="cstat-no" title="statement not covered" >  var instantiationStack = ''</span>
+<span class="cstat-no" title="statement not covered" >  if (originalError.file == null) {</span>
+    // We want to report the instantiation stack only for "unexpected" errors
+    // (bugs, internal errors), but not for compiler errors and such. For now,
+    // the presence of `.file` serves as a heuristic to distinguish between
+    // those cases.
+<span class="cstat-no" title="statement not covered" >    instantiationStack = nodeWrapper.formatInstantiationStackForTerminal()</span>
+  }
+<span class="cstat-no" title="statement not covered" >  var message = filePart + originalError.message +</span>
+    (originalError.treeDir ? '\n        in ' + originalError.treeDir : '') +
+    '\n        at ' + nodeWrapper.label +
+    instantiationStack
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  BuilderError.call(this, message)</span>
+<span class="cstat-no" title="statement not covered" >  this.stack = originalError.stack</span>
+&nbsp;
+  // This error API can change between minor Broccoli version bumps
+<span class="cstat-no" title="statement not covered" >  this.broccoliPayload = {</span>
+    originalError: originalError, // guaranteed to be error object, not primitive
+    originalMessage: originalError.message,
+    // node info
+    nodeId: nodeWrapper.id,
+    nodeLabel: nodeWrapper.label,
+    nodeName: nodeWrapper.nodeInfo.name,
+    nodeAnnotation: nodeWrapper.nodeInfo.annotation,
+    instantiationStack: nodeWrapper.nodeInfo.instantiationStack,
+    // error location (if any)
+    location: {
+      file: originalError.file,
+      treeDir: originalError.treeDir,
+      line: originalError.line,
+      column: originalError.column
+    }
+  }
+}
+&nbsp;
+&nbsp;
+Builder.NodeWrapper = NodeWrapper
+<span class="fstat-no" title="function not covered" >function NodeWrapper() {</span>
+<span class="cstat-no" title="statement not covered" >  this.buildState = {}</span>
+}
+&nbsp;
+Builder.TransformNodeWrapper = TransformNodeWrapper
+TransformNodeWrapper.prototype = Object.create(NodeWrapper.prototype)
+TransformNodeWrapper.prototype.constructor = TransformNodeWrapper
+<span class="fstat-no" title="function not covered" >function TransformNodeWrapper() {</span>
+<span class="cstat-no" title="statement not covered" >  NodeWrapper.apply(this, arguments)</span>
+}
+&nbsp;
+Builder.SourceNodeWrapper = SourceNodeWrapper
+SourceNodeWrapper.prototype = Object.create(NodeWrapper.prototype)
+SourceNodeWrapper.prototype.constructor = SourceNodeWrapper
+<span class="fstat-no" title="function not covered" >function SourceNodeWrapper() {</span>
+<span class="cstat-no" title="statement not covered" >  NodeWrapper.apply(this, arguments)</span>
+}
+&nbsp;
+TransformNodeWrapper.prototype.setup = <span class="fstat-no" title="function not covered" >function(features) {</span>
+<span class="cstat-no" title="statement not covered" >  this.nodeInfo.setup(features, {</span>
+    inputPaths: this.inputPaths,
+    outputPath: this.outputPath,
+    cachePath: this.cachePath
+  })
+<span class="cstat-no" title="statement not covered" >  this.callbackObject = this.nodeInfo.getCallbackObject()</span>
+}
+&nbsp;
+SourceNodeWrapper.prototype.setup = <span class="fstat-no" title="function not covered" >function(features) {</span>
+}
+&nbsp;
+// Call node.build(), plus bookkeeping
+TransformNodeWrapper.prototype.build = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var self = this</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var startTime = process.hrtime()</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!this.nodeInfo.persistentOutput) {</span>
+<span class="cstat-no" title="statement not covered" >    rimraf.sync(this.outputPath)</span>
+<span class="cstat-no" title="statement not covered" >    fs.mkdirSync(this.outputPath)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return RSVP.resolve(self.callbackObject.build())</span>
+&nbsp;
+    .then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      var now = process.hrtime()</span>
+      // Build time in milliseconds
+<span class="cstat-no" title="statement not covered" >      self.buildState.selfTime = 1000 * ((now[0] - startTime[0]) + (now[1] - startTime[1]) / 1e9)</span>
+<span class="cstat-no" title="statement not covered" >      self.buildState.totalTime = self.buildState.selfTime</span>
+<span class="cstat-no" title="statement not covered" >      for (var i = 0; i &lt; self.inputNodeWrappers.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        self.buildState.totalTime += self.inputNodeWrappers[i].buildState.totalTime</span>
+      }
+    })
+}
+&nbsp;
+SourceNodeWrapper.prototype.build = <span class="fstat-no" title="function not covered" >function() {</span>
+  // We only check here that the sourceDirectory exists and is a directory
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    if (!fs.statSync(this.nodeInfo.sourceDirectory).isDirectory()) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('Not a directory')</span>
+    }
+  } catch (err) { // stat might throw, or we might throw
+<span class="cstat-no" title="statement not covered" >    err.file = this.nodeInfo.sourceDirectory</span>
+    // fs.stat augments error message with file name, but that's redundant
+    // with our err.file, so we strip it
+<span class="cstat-no" title="statement not covered" >    err.message = err.message.replace(/, stat '[^'\n]*'$/m, '')</span>
+<span class="cstat-no" title="statement not covered" >    throw err</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.buildState.selfTime = 0</span>
+<span class="cstat-no" title="statement not covered" >  this.buildState.totalTime = 0</span>
+}
+&nbsp;
+TransformNodeWrapper.prototype.toString = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var hint = this.label</span>
+<span class="cstat-no" title="statement not covered" >  hint = this.label</span>
+<span class="cstat-no" title="statement not covered" >  if (this.inputNodeWrappers) { // a bit defensive to deal with partially-constructed node wrappers</span>
+<span class="cstat-no" title="statement not covered" >    hint += ' inputNodeWrappers:[' + this.inputNodeWrappers.map(<span class="fstat-no" title="function not covered" >function(nw) {</span> <span class="cstat-no" title="statement not covered" >return nw.id }</span>) + ']'</span>
+  }
+<span class="cstat-no" title="statement not covered" >  hint += ' at ' + this.outputPath</span>
+<span class="cstat-no" title="statement not covered" >  if (this.buildState.selfTime != null) {</span>
+<span class="cstat-no" title="statement not covered" >    hint += ' (' + Math.round(this.buildState.selfTime) + ' ms)'</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return '[NodeWrapper:' + this.id + ' ' + hint + ']'</span>
+}
+&nbsp;
+SourceNodeWrapper.prototype.toString = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var hint = this.nodeInfo.sourceDirectory +</span>
+    (this.nodeInfo.watched ? '' : ' (unwatched)')
+<span class="cstat-no" title="statement not covered" >  return '[NodeWrapper:' + this.id + ' ' + hint + ']'</span>
+}
+&nbsp;
+NodeWrapper.prototype.toJSON = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return undefinedToNull({</span>
+    id: this.id,
+    nodeInfo: this.nodeInfoToJSON(),
+    buildState: this.buildState,
+    label: this.label,
+    inputNodeWrappers: this.inputNodeWrappers.map(<span class="fstat-no" title="function not covered" >function(nw) {</span> <span class="cstat-no" title="statement not covered" >return nw.id }</span>),
+    cachePath: this.cachePath,
+    outputPath: this.outputPath
+    // leave out node, originalNode, inputPaths (redundant), build
+  })
+}
+&nbsp;
+TransformNodeWrapper.prototype.nodeInfoToJSON = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return undefinedToNull({</span>
+    nodeType: 'transform',
+    name: this.nodeInfo.name,
+    annotation: this.nodeInfo.annotation,
+    persistentOutput: this.nodeInfo.persistentOutput,
+    needsCache: this.nodeInfo.needsCache
+    // leave out instantiationStack (too long), inputNodes, and callbacks
+  })
+}
+&nbsp;
+SourceNodeWrapper.prototype.nodeInfoToJSON = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return undefinedToNull({</span>
+    nodeType: 'source',
+    sourceDirectory: this.nodeInfo.sourceDirectory,
+    watched: this.nodeInfo.watched,
+    name: this.nodeInfo.name,
+    annotation: this.nodeInfo.annotation
+    // leave out instantiationStack
+  })
+}
+&nbsp;
+NodeWrapper.prototype.formatInstantiationStackForTerminal = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return '\n-~- created here: -~-\n' + this.nodeInfo.instantiationStack + '\n-~- (end) -~-'</span>
+}
+&nbsp;
+&nbsp;
+// Replace all `undefined` values with `null`, so that they show up in JSON output
+<span class="fstat-no" title="function not covered" >function undefinedToNull(obj) {</span>
+<span class="cstat-no" title="statement not covered" >  for (var key in obj) {</span>
+<span class="cstat-no" title="statement not covered" >    if (obj.hasOwnProperty(key) &amp;&amp; obj[key] === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      obj[key] = null</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  return obj</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function wrapPrimitiveErrors(err) {</span>
+<span class="cstat-no" title="statement not covered" >  if (err !== null &amp;&amp; typeof err === 'object') {</span>
+<span class="cstat-no" title="statement not covered" >    return err</span>
+  } else {
+    // We could augment the message with " [string exception]" to indicate
+    // that the stack trace is not useful, or even set the .stack to null.
+<span class="cstat-no" title="statement not covered" >    return new Error(err + '')</span>
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:32:05 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
