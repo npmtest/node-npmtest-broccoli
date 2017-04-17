@@ -1,7 +1,7 @@
 # test coverage for  [broccoli (v1.1.1)](https://github.com/broccolijs/broccoli)  [![npm package](https://img.shields.io/npm/v/npmtest-broccoli.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-broccoli) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-broccoli.svg)](https://travis-ci.org/npmtest/node-npmtest-broccoli)
 #### Fast client-side asset builder
 
-[![NPM](https://nodei.co/npm/broccoli.png?downloads=true)](https://www.npmjs.com/package/broccoli)
+[![NPM](https://nodei.co/npm/broccoli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/broccoli)
 
 | git-branch : | [alpha](https://github.com/npmtest/node-npmtest-broccoli/tree/alpha)|
 |--:|:--|
@@ -9,11 +9,17 @@
 | test-report : | [![test-report](https://npmtest.github.io/node-npmtest-broccoli/build/test-report.badge.svg)](https://npmtest.github.io/node-npmtest-broccoli/build/test-report.html)|
 | build-artifacts : | [![build-artifacts](https://npmtest.github.io/node-npmtest-broccoli/glyphicons_144_folder_open.png)](https://github.com/npmtest/node-npmtest-broccoli/tree/gh-pages/build)|
 
-[![istanbul-coverage](https://npmtest.github.io/node-npmtest-broccoli/build/screenCapture.buildCustomOrg.browser.coverage.html.png)](https://npmtest.github.io/node-npmtest-broccoli/build/coverage.html/index.html)
+- [https://npmtest.github.io/node-npmtest-broccoli/build/coverage.html/index.html](https://npmtest.github.io/node-npmtest-broccoli/build/coverage.html/index.html)
 
-[![test-report](https://npmtest.github.io/node-npmtest-broccoli/build/screenCapture.buildCustomOrg.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmtest%252Fnode-npmtest-broccoli%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-broccoli/build/test-report.html)
+[![istanbul-coverage](https://npmtest.github.io/node-npmtest-broccoli/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)](https://npmtest.github.io/node-npmtest-broccoli/build/coverage.html/index.html)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-broccoli/build/screenCapture.buildApidoc.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmdoc%252Fnode-npmdoc-broccoli%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-broccoli/build/apidoc.html)
+- [https://npmtest.github.io/node-npmtest-broccoli/build/test-report.html](https://npmtest.github.io/node-npmtest-broccoli/build/test-report.html)
+
+[![test-report](https://npmtest.github.io/node-npmtest-broccoli/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-broccoli/build/test-report.html)
+
+- [https://npmdoc.github.io/node-npmdoc-broccoli/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-broccoli/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-broccoli/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-broccoli/build/apidoc.html)
 
 ![npmPackageListing](https://npmtest.github.io/node-npmtest-broccoli/build/screenCapture.npmPackageListing.svg)
 
@@ -27,8 +33,7 @@
 
 {
     "author": {
-        "name": "Jo Liss",
-        "email": "joliss42@gmail.com"
+        "name": "Jo Liss"
     },
     "bugs": {
         "url": "https://github.com/broccolijs/broccoli/issues"
@@ -85,21 +90,17 @@
     "main": "lib/index.js",
     "maintainers": [
         {
-            "name": "joliss",
-            "email": "joliss42@gmail.com"
+            "name": "joliss"
         },
         {
-            "name": "rwjblue",
-            "email": "me@rwjblue.com"
+            "name": "rwjblue"
         },
         {
-            "name": "stefanpenner",
-            "email": "stefan.penner@gmail.com"
+            "name": "stefanpenner"
         }
     ],
     "name": "broccoli",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/broccolijs/broccoli.git"
