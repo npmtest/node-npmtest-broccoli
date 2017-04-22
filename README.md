@@ -1,4 +1,7 @@
-# test coverage for  [broccoli (v1.1.1)](https://github.com/broccolijs/broccoli)  [![npm package](https://img.shields.io/npm/v/npmtest-broccoli.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-broccoli) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-broccoli.svg)](https://travis-ci.org/npmtest/node-npmtest-broccoli)
+# npmtest-broccoli
+
+#### basic test-coverage for  [broccoli (v1.1.1)](https://github.com/broccolijs/broccoli)  [![npm package](https://img.shields.io/npm/v/npmtest-broccoli.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-broccoli) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-broccoli.svg)](https://travis-ci.org/npmtest/node-npmtest-broccoli)
+
 #### Fast client-side asset builder
 
 [![NPM](https://nodei.co/npm/broccoli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/broccoli)
@@ -109,7 +112,8 @@
         "pretest": "multidep test/multidep.json",
         "test": "mocha"
     },
-    "version": "1.1.1"
+    "version": "1.1.1",
+    "bin": {}
 }
 ```
 
